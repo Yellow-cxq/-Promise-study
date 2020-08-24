@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    new Promise((resolve,reject) => {
+        setTimeout(() => {
+            //resolve('成功的数据')
+            reject('失败的数据')
+        }, 1000);
+    }).then(
+        value => {
+            console.log("onResolved()1",value);
+        }
+    ).catch(
+        reason => {
+            console.log("onRejected()1",reason);
+        }
+    )
+
+    //产生一个成功值为1的Promise对象
+    const p1 = new Promise((resolve,reject) => {
+        resolve(1)
+    })
+    const p2 = Promise.resolve(2)
+    const p3 = Promise.reject(3)
+    p1.then(value => {console.log(value);})
+    p2.then(value => {console.log(value);})
+    p3.catch(reason => {console.log(reason);})
+     
+    //const pAll = Promise.all([p1,p2,p3]) //失败
+    const pAll = Promise.all([p1,p2])  //成功返回数组，数据顺序与执行的顺序无关，跟数组中的顺序完全一致
+    pAll.then(
+        values => {
+            console.log("all onResolved()",values);
+        },
+        reason => {
+            console.log("all onRejected()",reason);
+        }
+    )
+
+    //const pRace = Promise.race([p1,p2,p3])   //成功
+    const pRace = Promise.race([p3,p1,p2])  //失败
+    pRace.then(
+        value => {
+            console.log("race onResolved()",value);
+        },
+        reason => {
+            console.log("race onRejected()",reason);
+        }
+    )
+</script>
+
+</html>

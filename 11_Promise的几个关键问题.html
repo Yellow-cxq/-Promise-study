@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    new Promise((resolve, reject) => {
+        //resolve(1)
+        reject(1) //异常传透
+    }).then(
+        value => {
+            console.log("onResolved1()", value);
+        }
+    ).then(
+        value => {
+            console.log("onResolved2()", value);
+        }
+    ).then(
+        value => {
+            console.log("onResolved3()", value);
+        }
+    ).catch(
+        reason => {
+            console.log('onRejectd()', reason)
+            return new Promise(() => {}) //pending状态的Promise中断链条
+        }
+    ).then(
+        value => {
+            console.log("成功");
+        },
+        reason => {
+            console.log("失败");
+        }
+    )
+</script>
+
+</html>

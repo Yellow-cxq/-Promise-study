@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    new Promise((resolve,reject) => {
+        resolve(1)
+        //reject(1)
+    }).then(
+        value => {
+            console.log("onResolved()1",value); //这样写相当于return undefined
+            //return 1
+            //return Promise.resolve(2)
+            //return Promise.reject(3)
+            throw 4
+        },
+        reason => {
+            console.log("onRejected()1",reason);
+        }
+    ).then(
+        value => {
+            console.log("onResolved()2",value);
+        },
+        reason => {
+            console.log("onRejected()2",reason);
+        }
+    )
+    //.then()返回的新promise的结果状态由then()指定的回调函数执行的结果决定
+</script>
+</html>

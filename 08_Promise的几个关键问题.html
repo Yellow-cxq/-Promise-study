@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    //常规
+    new Promise((resolve,reject) => {
+        setTimeout(() => {
+            resolve('成功') //后改变状态，异步执行回调函数
+        }, 1000);
+    }).then(
+        value => { //先指定回调，保存回调函数
+            console.log('value1',value);
+        },
+        reason => {
+            console.log('reason1',reason);
+        }
+    )
+
+    new Promise((resolve,reject) => {
+        resolve('成功') //先改变状态
+    }).then(
+        value => { //后指定回调，异步执行回调函数
+            console.log('value2',value);
+        },
+        reason => {
+            console.log('reason2',reason);
+        }
+    )
+
+    const p = new Promise((resolve,reject) => {
+        setTimeout(() => {
+            resolve('成功') //先改变状态
+        }, 1000);
+    })
+    p.then(
+        setTimeout(() => {
+           value => { //后指定回调，异步执行回调函数
+            console.log('value3',value);
+        },
+        reason => {
+            console.log('reason3',reason);
+        }  
+        }, 1100)
+    )
+</script>
+</html>
